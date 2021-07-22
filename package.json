@@ -1,5 +1,5 @@
 {
-  "name": "instagram - forked from the initial setup of https://github.com/karlhadwen/instagram",
+  "name": "instagram-clone",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
