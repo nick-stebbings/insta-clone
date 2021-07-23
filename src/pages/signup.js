@@ -1,38 +1,63 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import FirebaseContext from '../context/firebase';
+import { doesUsernameExist } from '../services/firebase';
 import * as ROUTES from '../constants/routes';
 
 export default function SignUp() {
   const history = useHistory();
   const { firebase } = useContext(FirebaseContext);
+
   const [username, setUsername] = useState('');
   const [fullname, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [errorStatus, setErrorStatus] = useState('');
-  let isInvalid =
+  const isInvalid =
     username === '' || fullname === '' || email === '' || password === '';
 
   const isLowerCase = (str) => str.toLowerCase() === str;
   const handleFieldValidation = ({ target }) => {
     console.log(target.value.split(' ').length);
     if (target.value.split(' ').length > 1 || !isLowerCase(target.value)) {
-      setErrorStatus('Make sure that your username and email address are both lowercase, with no spaces');
+      setErrorStatus(
+        'Make sure that your username and email address are both lowercase, with no spaces'
+      );
     } else {
       setErrorStatus('');
     };
   };
+
   const handleSignUp = async (event) => {
     event.preventDefault();
     try {
-      const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      
+      const exists = await doesUsernameExist(username);
+      if (!exists) {
+        setErrorStatus('Username already exists. Please enter a fresh username');
+
+        history.push(ROUTES.SIGN_UP);
+        setUsername('');
+        return;
+      }
+      const response = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+
       await response.user.updateProfile({
-        displayName: username
+        displayName: username,
       });
 
-      await firebase.firestore().collection('users').add({})
+      await firebase.firestore().collection('users').add({
+        userId: response.user.uid,
+        username: username.toLowerCase(),
+        fullName: fullname,
+        emailAddress: email.toLowerCase(),
+        following: [],
+        followers: [],
+        dateCreated: Date.now()
+      });
+      
       history.push(ROUTES.DASHBOARD);
     } catch (error) {
       setUsername('');
