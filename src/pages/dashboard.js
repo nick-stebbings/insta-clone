@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from '../components/header';
-import Timeline from '../components/timeline';
-import Sidebar from '../components/sidebar';
+import React, { useEffect } from 'react';
+import Header from '../components/header.js';
+import Timeline from '../components/timeline.js';
+import Sidebar from '../components/sidebar/index.js';
 
 export default function Dashboard() {
 
@@ -10,8 +10,12 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="app bg-red-500">
-      <p>Test</p>
+    <div className="bg-gray-100">
+      <Header />
+      <div className="grid justify-between max-w-screen-lg grid-cols-3 gap-4 mx-auto">
+        <Timeline />
+        <Sidebar />
+      </div>
     </div>
   );
 }
