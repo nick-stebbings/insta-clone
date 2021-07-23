@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
 export default function Login() {
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorStatus, setErrorStatus] = useState('');
+  const isInvalid = password === '' || email === '';
 
   useEffect(() => {
-    document.title = 'Instagram - Log In'
+    document.title = 'Instagram - Log In';
   }, []);
 
   return (
@@ -24,19 +27,27 @@ export default function Login() {
               aria-label="Enter your email address"
               className="w-full h-2 px-4 py-5 mb-2 mr-3 text-sm border rounded"
               type="text"
-              name="username"
-              placeholder={'Enter your username'}
+              name="email"
+              value={email}
+              placeholder="Enter your email"
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
             />
             <input
               className="w-full h-2 px-4 py-5 mb-2 mr-3 text-sm border rounded"
               type="password"
               name="password"
-              placeholder={'Enter your password'}
+              value={password}
+              placeholder="Enter your password"
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
             />
             <button
               className={
                 isInvalid
-                  ? 'w-full h-8 font-bold text-white bg-blue-500 rounded opacity-50'
+                  ? 'w-full h-8 cursor-not-allowed font-bold text-white bg-blue-500 rounded opacity-50'
                   : 'w-full h-8 font-bold text-white bg-blue-500 rounded'
               }
               disabled={isInvalid}
