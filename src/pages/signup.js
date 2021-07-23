@@ -11,7 +11,8 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorStatus, setErrorStatus] = useState('');
-  const isInvalid = password === '' || email === '';
+  let isInvalid =
+    username === '' || fullname === '' || email === '' || password === '';
 
   const isLowerCase = (str) => str.toLowerCase() === str;
   const handleFieldValidation = ({ target }) => {
@@ -25,7 +26,13 @@ export default function SignUp() {
   const handleSignUp = async (event) => {
     event.preventDefault();
     try {
-      // await firebase.auth().signInWithEmailAndPassword(email, password);
+      const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      
+      await response.user.updateProfile({
+        displayName: username
+      });
+
+      await firebase.firestore().collection('users').add({})
       history.push(ROUTES.DASHBOARD);
     } catch (error) {
       setUsername('');
