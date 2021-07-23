@@ -1,4 +1,5 @@
 export function seedDatabase(firebase) {
+  console.log('firteds')
   const users = [
     {
       userId: '35wKXN9xlTMdwyX1TDV9fkDhRbq1',
