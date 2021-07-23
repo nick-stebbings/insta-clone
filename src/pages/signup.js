@@ -32,8 +32,8 @@ export default function SignUp() {
   const handleSignUp = async (event) => {
     event.preventDefault();
     try {
-      const exists = await doesUsernameExist(username);
-      if (!exists) {
+      const withThatUsername = await doesUsernameExist(username);
+      if (withThatUsername.length > 0) {
         setErrorStatus('Username already exists. Please enter a fresh username');
 
         history.push(ROUTES.SIGN_UP);
