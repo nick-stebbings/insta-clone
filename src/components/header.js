@@ -6,10 +6,8 @@ import * as ROUTES from '../constants/routes';
 
 export default function Header() {
   const { firebase } = useContext(FirebaseContext);
-  const user = {
-    displayName: "nickstebb"
-  };
-
+  const { user } = useContext(UserContext);
+console.log('user :>> ', user);
   return (
     <header className="h-16 mb-8 bg-white border-b">
       <div className="max-width-lg container h-full mx-auto">
