@@ -7,7 +7,7 @@ import * as ROUTES from '../constants/routes';
 export default function Header() {
   const { firebase } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
-console.log('user :>> ', user);
+
   return (
     <header className="h-16 mb-8 bg-white border-b">
       <div className="max-width-lg container h-full mx-auto">
@@ -15,7 +15,11 @@ console.log('user :>> ', user);
           <div className="align-items flex items-center">
             <h1>
               <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
-                <img className="w-6/12 mt-2 ml-2" src="../images/logo.png" alt="Instagram" />
+                <img
+                  className="w-6/12 mt-2 ml-2"
+                  src="../images/logo.png"
+                  alt="Instagram"
+                />
               </Link>
             </h1>
           </div>
