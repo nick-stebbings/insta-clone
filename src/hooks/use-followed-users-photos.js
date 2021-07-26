@@ -20,12 +20,12 @@ export default function useFollowedUserPhotos() {
     }
 
     followedUserPhotos.sort((a, b) => b.createdAt - a.createdAt);
+    setPhotos(followedUserPhotos);
     return followedUserPhotos;
   }
 
   useEffect(async () => {
-    const response = await getTimelinePhotos();
-    console.log('response :>> ', response);
+    await getTimelinePhotos();
   }, [userId]);
 
   return { photos };
