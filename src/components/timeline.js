@@ -9,7 +9,7 @@ console.log('photos :>> ', photos);
   return (
     <div className="container col-span-2">
       {photos ? (
-        photos.map((photoInfo) => <p key={photoInfo.docId}>{photoInfo.userId}</p>)
+        photos.map((photoInfo) => <p key={photoInfo.docId}>{photoInfo.username}</p>)
       ) : (
         <Skeleton count={4} width={640} height={500} className="mb-5" />
       )}
