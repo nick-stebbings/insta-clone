@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import useFollowedUserPhotos from '../hooks/use-followed-users-photos';
 
 export default function Timeline() {
-  const photos = [1,2,3,4,5];
+  const { photos } = useFollowedUserPhotos();
 
   return (
     <div className="container col-span-2">
