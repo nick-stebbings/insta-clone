@@ -45,8 +45,8 @@ export default function Actions({
             }}
             className={
               toggleLiked
-                ? 'w-8 mr-4 select-none cursor-pointer fill-red-700 text-red-700'
-                : 'w-8 mr-4 select-none cursor-pointer text-black'
+                ? 'w-8 mr-4 select-none cursor-pointer fill-current text-red-500'
+                : 'w-8 mr-4 select-none cursor-pointer fill-current text-black'
             }
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
