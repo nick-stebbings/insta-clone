@@ -3,12 +3,26 @@ import FirebaseContext from '../../context/firebase';
 import UserContext from '../../context/user';
 
 export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) {
+  const {
+    user: { uid: userId = '' },
+  } = useContext(UserContext);
+
   const [toggleLiked, setToggleLiked] = useState(likedPhoto);
   const [likes, setLikes] = useState(totalLikes);
   const { firebase, FieldValue } = useContext(FirebaseContext);
 
   const handleToggleLiked = async () => {
-    
+    setToggleLiked((toggleLiked) => !toggleLiked);
+
+    await firebase
+      .firstore()
+      .collection('photos')
+      .doc(docId)
+      .update({
+        likes: toggleLiked ? FieldValue.arrayRemove(userId) : FieldValue.arrayUnion(userId)
+      });
+
+    setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1));
   };
 
   return (
@@ -24,8 +38,8 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) 
             }}
             className={
               toggleLiked
-                ? 'w-8 mr-4 select-none cursor-pointer fill-red text-red-primary `w-8 mr-4 select-none cursor-pointer '
-                : 'w-8 mr-4 select-none cursor-pointer text-black-light'
+                ? 'w-8 mr-4 select-none cursor-pointer fill-red-700 text-red-700 w-8 mr-4 select-none cursor-pointer'
+                : 'w-8 mr-4 select-none cursor-pointer text-black'
             }
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

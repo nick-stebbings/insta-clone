@@ -8,7 +8,6 @@ import Actions from './actions';
 
 export default function Post({ content }) {
   const commentInput = useRef(null);
-
   const handleFocus = () => commentInput.current.focus();
 
   return (
