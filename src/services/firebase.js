@@ -25,6 +25,10 @@ export async function doesUsernameExist(username) {
   return result.docs.map((user) => user.data().length > 0);
 };
 
+export async function getSuggestedProfiles(userId) {
+
+};
+
 export async function getUserFollowedPhotos(uid, followingUserIds) {
   const result = await firebase
     .firestore()
