@@ -34,19 +34,24 @@ const Suggestions = function ({ userId }) {
     <Skeleton className="mt-5" count={3} height={150} />
   ) : (
     profiles.length > 0 && (
-      <div className="grid">
-        {profiles.map((profile) => (
-          <SuggestedProfile
-            key={profile.docId}
-            userDocId={profile.docId}
-            username={profile.username}
-            profileId={profile.userId}
-            userId={userId}
-          />
-        ))}
+      <div className="flex flex-col">
+        <div className="align-items flex items-center justify-between mt-2 mb-2">
+          <p className="text-sm font-semibold text-gray-600">Suggestions for you</p>
+        </div>
+        <div className="grid gap-5 mt-4">
+          {profiles.map((profile) => (
+            <SuggestedProfile
+              key={profile.docId}
+              userDocId={profile.docId}
+              username={profile.username}
+              profileId={profile.userId}
+              userId={userId}
+            />
+          ))}
+        </div>
       </div>
-  )
-  )
+    )
+  );
 };
 
 export default memo(Suggestions);
