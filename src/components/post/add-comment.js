@@ -1,18 +1,19 @@
 import React, { useState, useContext } from 'react';
 import FirebaseContext from '../../context/firebase';
+import { getUserByUserId } from '../../services/firebase';
 import UserContext from '../../context/user';
-import { Link } from 'react-router-dom';
 
 export default function AddComment({ docId, comments, setComments, commentInput }) {
   const [comment, setComment] = useState('');
   const { firebase, FieldValue } = useContext(FirebaseContext);
   const {
-    user: { displayName },
+    user: { uid: userId = '' },
   } = useContext(UserContext);
 
-  const handleSubmitComment = (event) => {
+  const handleSubmitComment = async(event) => {
     event.preventDefault();
-
+    const [activeUser] = await getUserByUserId(userId);
+    const displayName = activeUser.username;
     setComments([{ displayName, comment }, ...comments]);
     setComment('');
 
