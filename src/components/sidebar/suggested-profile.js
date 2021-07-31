@@ -6,7 +6,7 @@ export default function SuggestedProfile({ userDocId, username, profileId }) {
 
   async function handleFollowUser() {
     setFollowed(true);
-  }
+  };
 
   return !followed ? (
     <div className="align-items flex flex-row items-center justify-between">
@@ -16,7 +16,7 @@ export default function SuggestedProfile({ userDocId, username, profileId }) {
           alt={`Follow ${username}`}
         />
         <Link to={`/p/${username}`}>
-            <p className="text-sm font-bold">{username}</p>
+          <p className="text-sm font-bold">{username}</p>
         </Link>
       </div>
       <div className="flex">

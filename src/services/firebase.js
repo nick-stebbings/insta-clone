@@ -26,7 +26,18 @@ export async function doesUsernameExist(username) {
 };
 
 export async function getSuggestedProfiles(userId) {
+  const result = await firebase.firestore().collection('users').limit(10).get();
 
+  const [{ following: userFollowing = [] }] = result.docs
+    .map((user) => user.data())
+    .filter((profile) => profile.userId === userId);
+
+  return docs
+    .map((user) => ({ docId: user.id, ...user.data()}))
+    .filter(
+      (profile) =>
+        profile.userId !== userId && !userFollowing.includes(profile.userId)
+    );
 };
 
 export async function getUserFollowedPhotos(uid, followingUserIds) {
