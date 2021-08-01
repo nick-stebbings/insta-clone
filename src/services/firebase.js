@@ -64,6 +64,37 @@ export async function getUserFollowedPhotos(uid, followingUserIds) {
   return photosWithUserDetails;
 };
 
+export async function getUserPhotosByUserName(username) {
+  const uid = await getUserIdByUserName(username);
+
+  const result = await firebase
+    .firestore()
+    .collection('photos')
+    .where('userId', '==', uid)
+    .get();
+
+  const photos = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+
+  return photos;
+};
+
+export async function getUserIdByUserName(username) {
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('username', '==', username)
+    .get();
+      
+  const [{ userId = null }] = result.docs.map((item) => ({
+    ...item.data(),
+  }));
+
+  return userId;
+};
+
 export async function getUserByUserName(username) {
   const result = await firebase
     .firestore()
