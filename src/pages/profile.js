@@ -7,7 +7,7 @@ import Header from '../components/header.js';
 import UserProfile from '../components/profile';
 
 export default function Profile() {
-  const { username } = userParams();
+  const { username } = useParams();
   const [userExists, setUserExists] = useState(undefined);
   const history = useHistory();
 
