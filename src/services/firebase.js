@@ -65,10 +65,11 @@ export async function getUserFollowedPhotos(uid, followingUserIds) {
 };
 
 export async function getUserByUserName(username) {
-  const result = firebase
+  const result = await firebase
     .firestore()
     .collection('users')
-    .where('username', '==', username);
+    .where('username', '==', username)
+    .get();
 
   const user = result.docs.map((item) => ({
     ...item.data(),

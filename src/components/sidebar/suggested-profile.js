@@ -3,16 +3,21 @@ import { Link } from 'react-router-dom';
 import {
   getUserByUserId,
   updateUserFollowing,
-  updateFollowedUserFollowing
+  updateFollowedUserFollowing,
 } from '../../services/firebase';
 
-export default function SuggestedProfile({ userDocId, username, profileId, userId }) {
+export default function SuggestedProfile({
+  userDocId,
+  username,
+  profileId,
+  userId,
+}) {
   const [followed, setFollowed] = useState(false);
 
   async function handleFollowUser() {
     setFollowed(true);
 
-    const [{ docId }] = getUserByUserId(userDocId);
+    const [{ docId }] = await getUserByUserId(userId);
     await updateUserFollowing(docId, profileId);
     await updateFollowedUserFollowing(userDocId, userId);
   };
@@ -20,7 +25,8 @@ export default function SuggestedProfile({ userDocId, username, profileId, userI
   return !followed ? (
     <div className="align-items flex flex-row items-center justify-between">
       <div className="flex items-center justify-between">
-        <img className="flex w-8 mr-3 rounded-full"
+        <img
+          className="flex w-8 mr-3 rounded-full"
           src={`/images/avatars/${username}.jpg`}
           alt={`Follow ${username}`}
         />
