@@ -7,6 +7,7 @@ export default function Timeline() {
   const { photos } = useFollowedUserPhotos();
   return (
     <div className="container col-span-2 px-4">
+      {console.log('photos from timeline :>> ', photos)}
       {photos ? (
         photos.map((photoInfo) => (
           <Post key={photoInfo.docId} content={photoInfo} />

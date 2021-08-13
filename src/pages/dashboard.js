@@ -4,7 +4,6 @@ import Timeline from '../components/timeline.js';
 import Sidebar from '../components/sidebar/index.js';
 
 export default function Dashboard() {
-
   useEffect(() => {
     document.title = 'Instagram';
   }, []);
