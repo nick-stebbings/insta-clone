@@ -13,7 +13,7 @@ export async function getUserByUserId(uid) {
   }));
 
   return user;
-};
+}
 
 export async function doesUsernameExist(username) {
   const result = await firebase
@@ -23,7 +23,7 @@ export async function doesUsernameExist(username) {
     .get();
 
   return result.docs.map((user) => user.data().length > 0);
-};
+}
 
 export async function getSuggestedProfiles(userId) {
   const result = await firebase.firestore().collection('users').limit(10).get();
@@ -35,7 +35,7 @@ export async function getSuggestedProfiles(userId) {
       (profile) =>
         profile.userId !== userId && !following.includes(profile.userId)
     );
-};
+}
 
 export async function getUserFollowedPhotos(uid, followingUserIds) {
   const result = await firebase
@@ -62,7 +62,21 @@ export async function getUserFollowedPhotos(uid, followingUserIds) {
   );
 
   return photosWithUserDetails;
-};
+}
+
+export async function getUserIdByUserName(username) {
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('username', '==', username)
+    .get();
+
+  const [{ userId = null }] = result.docs.map((item) => ({
+    ...item.data(),
+  }));
+
+  return userId;
+}
 
 export async function getUserPhotosByUserName(username) {
   const uid = await getUserIdByUserName(username);
@@ -79,21 +93,7 @@ export async function getUserPhotosByUserName(username) {
   }));
 
   return photos;
-};
-
-export async function getUserIdByUserName(username) {
-  const result = await firebase
-    .firestore()
-    .collection('users')
-    .where('username', '==', username)
-    .get();
-      
-  const [{ userId = null }] = result.docs.map((item) => ({
-    ...item.data(),
-  }));
-
-  return userId;
-};
+}
 
 export async function getUserByUserName(username) {
   const result = await firebase
@@ -108,7 +108,7 @@ export async function getUserByUserName(username) {
   }));
 
   return user.length > 0 ? user : false;
-};
+}
 
 export async function updateUserFollowing(
   docId,
@@ -124,7 +124,7 @@ export async function updateUserFollowing(
         ? FieldValue.arrayRemove(profileId)
         : FieldValue.arrayUnion(profileId),
     });
-};
+}
 
 export async function updateFollowedUserFollowing(
   docId,
@@ -140,4 +140,4 @@ export async function updateFollowedUserFollowing(
         ? FieldValue.arrayRemove(followingUserId)
         : FieldValue.arrayUnion(followingUserId)
       });
-};
+}

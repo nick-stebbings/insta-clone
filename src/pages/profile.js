@@ -15,11 +15,11 @@ export default function Profile() {
     async function checkUserExistsToLoadProfile() {
       const doesUserExist = await getUserByUserName(username);
       if (!doesUserExist) {
-        history.push(ROUTES.NOT_FOUND)
+        history.push(ROUTES.NOT_FOUND);
       } else {
         setUserExists(doesUserExist);
       }
-    };
+    }
     checkUserExistsToLoadProfile();
   }, [username, history]);
 
@@ -29,7 +29,6 @@ export default function Profile() {
       <div className="max-w-screen-lg mx-auto">
         <UserProfile username={username} />
       </div>
-      
     </div>
   ) : null;
 }
