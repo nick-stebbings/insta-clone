@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
-import Post from '../post';
 
 export default function Photos({ photos }) {
   return (
