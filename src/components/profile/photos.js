@@ -23,7 +23,6 @@ export default function Photos({ photos }) {
           ))
         ) : null}
       </div>
-{console.log('photos :>> ', photos)}
       {!photos ||
         (photos && photos.length === 0 && (
           <p className="text-2xl text-center">No Photos Yet</p>
